@@ -1,6 +1,9 @@
-﻿.idea/
- LoadScene.sln
- LoadScene.sln.DotSettings.user
- packages/
-
+﻿LoadScene/bin
+LoadScene/obj
+LoadScene/Properties
+*.csproj
+LoadScene.sln
+LoadScene.sln.DotSettings.user
+packages/
+.idea/
  
