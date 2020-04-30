@@ -4,6 +4,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using System.Linq;
 using System.Windows.Markup;
+using TaleWorlds.ObjectSystem;
 
 
 namespace LoadScene.ModelObjects
@@ -121,5 +122,18 @@ namespace LoadScene.ModelObjects
         
         
     }
+
+
+    public class test
+    {
+        public static void RandomWorker()
+
+
+        {
+         
+        }
+    }
+    
+   
 
 }

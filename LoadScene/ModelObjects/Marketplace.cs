@@ -25,15 +25,34 @@ namespace LoadScene.ModelObjects
 
         public void PopulateMarket()
         {
-
+            if (this._workers.Count == 20)
+            {
+                return;
+            }
+            
+            for (var i = 0; i < (20 - this._workers.Count); i++)
+            {
+                var worker = this.RandomWorker();
+                this._workers.Add(worker);
+            }
 
         }
+
+        public List<Worker> GetMarketList => this._workers;
+       
         
-        public void RandomWorker()
+        public NormalWorker RandomWorker()
         {
-            var worker = MBObjectManager.Instance.GetObjectTypeList<Hero>().GetRandomElement();
-            var multiplier = new Traits();
-        
+            var hero = MBObjectManager.Instance.GetObjectTypeList<Hero>().GetRandomElement();
+            var traits = new Traits().GetRandom3();
+            var worker  = new NormalWorker(hero,traits);
+            worker.DefaultStats();
+
+
+            return worker;
+
+
+
 
         }
     }

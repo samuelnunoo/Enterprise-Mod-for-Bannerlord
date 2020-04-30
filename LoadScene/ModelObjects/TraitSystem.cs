@@ -146,7 +146,7 @@ namespace LoadScene.ModelObjects
                     continue;
                 }
 
-                traits[i] = trait;
+                traits.Add(trait);
 
             }
             
@@ -158,10 +158,5 @@ namespace LoadScene.ModelObjects
     
     }
     
- 
-    
-    
-
-    
-    
+   
 }
