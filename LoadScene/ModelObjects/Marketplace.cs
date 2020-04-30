@@ -7,23 +7,24 @@ using TaleWorlds.ObjectSystem;
 
 namespace LoadScene.ModelObjects
 {
-    public class Marketplace : CampaignBehaviorBase
+    public class Marketplace : GameModel
     {
+       
 
-        private List<Worker> _workers; 
+        //Internal List of Workers 
+        private List<Worker> _workers;
         
-        public override void RegisterEvents()
-        {
-          
+        // Initialize List
+        public Marketplace() {
+            
+            this._workers = new List<Worker>();
+            
+            
         }
 
-        public override void SyncData(IDataStore dataStore)
-        {
-
-        }
-
-
+        //Adds up to 20 workers to List
         public void PopulateMarket()
+        
         {
             if (this._workers.Count == 20)
             {
@@ -38,9 +39,19 @@ namespace LoadScene.ModelObjects
 
         }
 
+        
+        //Clears the Market 
+        public void ClearMarket()
+        {
+            this._workers = new List<Worker>();
+        }
+
+        
+        //Public Getter for Market List 
         public List<Worker> GetMarketList => this._workers;
        
         
+        //Generate Random Worker
         public NormalWorker RandomWorker()
         {
             var hero = MBObjectManager.Instance.GetObjectTypeList<Hero>().GetRandomElement();

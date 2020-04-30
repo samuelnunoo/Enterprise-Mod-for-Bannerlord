@@ -1,4 +1,5 @@
 ﻿
+using LoadScene.ModelObjects;
 using SandBox.View.Map;
 using TaleWorlds.Core;
 
@@ -20,9 +21,17 @@ namespace LoadScene.NavigationElements
         }
 
 
-        void CustomNavigationHandler.OpenOverview()
+        void CustomNavigationHandler.OpenOverview(Worker worker)
         {
-            this._game.GameStateManager.PushState(this._game.GameStateManager.CreateState<HireWorkerState>(), 0);
+            //Create GameState
+            WorkerOverViewState workerState = this._game.GameStateManager.CreateState<WorkerOverViewState>();
+            
+            //Add value to State 
+            workerState.Worker = worker;
+            
+            //Push State
+            this._game.GameStateManager.PushState(workerState, 0);
         }
+        
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using LoadScene.ModelObjects;
 using LoadScene.NavigationElements;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
@@ -21,12 +22,14 @@ namespace LoadScene.UIElements
         private GauntletLayer _gauntletLayer;
         private readonly CustomState _customState;
         private MarketplaceVM _dataSource;
+     
 
 
         public MarketplaceScreen(CustomState customState)
         {
             this._customState = customState;
             this._customState.Listener = (IGameStateListener) this;
+            
         }
 
         void IGameStateListener.OnActivate()
@@ -68,28 +71,36 @@ namespace LoadScene.UIElements
         
         
         
-
-        private MBBindingList<HeroVM> _heros;
+        //Class Variables 
+        private MBBindingList<WorkerVM> _heros;
         private CustomNavigationHandler _navigationHandler;
+        private EnterpriseCampaignBehavior _enterprise;
         
         public MarketplaceVM(){
 
-            this._heros = new MBBindingList<HeroVM>();
-            this._navigationHandler = new CustomNavigation();
             
-            for (int i = 0; i < 8; i++)
+            //Set Class Variables 
+            this._heros = new MBBindingList<WorkerVM>();
+            this._navigationHandler = new CustomNavigation();
+            this._enterprise = Campaign.Current.GetCampaignBehavior<EnterpriseCampaignBehavior>();
+
+            
+            //Add Workers to HeroVM
+            foreach (Worker worker in this._enterprise.GetWorkers)
             {
-                Hero temp = MBObjectManager.Instance.GetObjectTypeList<Hero>().GetRandomElement();
-                this._heros.Add(new HeroVM(temp));
+                this._heros.Add(new WorkerVM(worker.Character,worker));
             }
+         
             
-            this._navigationHandler = new CustomNavigation();
+            
+      
+     
 
         }
         
-        
+        //HeroCharacter
         [DataSourceProperty] 
-        public MBBindingList<HeroVM> HeroCharacters
+        public MBBindingList<WorkerVM> HeroCharacters
         {
             get { return this._heros; }
 
@@ -103,14 +114,7 @@ namespace LoadScene.UIElements
             }
         }
 
-
-        [DataSourceMethod]
-        public void  OpenOverview()
-        {
-            this._navigationHandler.OpenOverview();
-        }
-
-
+        //Close Screen
         [DataSourceMethod]
         public void ExecuteClose()
         {

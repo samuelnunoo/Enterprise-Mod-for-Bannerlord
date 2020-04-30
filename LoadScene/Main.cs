@@ -1,5 +1,6 @@
 ﻿using LoadScene.ModelObjects;
 using LoadScene.Tests;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 using UIExtenderLib;
@@ -10,27 +11,53 @@ namespace LoadScene
     {
 
         private UIExtender _extender;
-        private bool bounce;
+     
+        
+        //Initialize UIExtender
         protected override void OnSubModuleLoad()
         {
             base.OnSubModuleLoad();
             
             _extender = new UIExtender("ExampleUIMod");
             _extender.Register();
-            bounce = false;
+       
 
 
 
         }
 
+        
+        //Initialize CampaignBehaviors
         protected override void OnGameStart(Game game, IGameStarter gameStarterObject)
         {
-            base.OnGameStart(game, gameStarterObject);
+            
+            Campaign campaign = game.GameType as Campaign;
+            bool flag = (campaign == null);
+            if (!flag)
+            {
+                CampaignGameStarter gameInitializer = (CampaignGameStarter) gameStarterObject;
+                    this.AddBehaviors(gameInitializer);
+              
+            }
+            
 
-            var marketplace = new Marketplace();
-            marketplace.PopulateMarket();
             
         }
+        
+        //Verify UIExtenderLib
+        protected override void OnBeforeInitialModuleScreenSetAsRoot()
+        {
+            base.OnBeforeInitialModuleScreenSetAsRoot();
+            _extender.Verify();
+        }
+
+        //Helper for CampaignBehaviors Initialze
+        private void AddBehaviors(CampaignGameStarter gameInitializer)
+        {
+            gameInitializer.AddBehavior(EnterpriseCampaignBehavior.Instance);
+        }
+
+      
     }
     
 }

@@ -9,6 +9,8 @@ using TaleWorlds.Core;
 namespace LoadScene.ModelObjects
 {
    
+    
+    // Structure for Multiplier Values 
     public struct MultiplierObject {
         public double _salary;
         public readonly double  _exp;
@@ -30,6 +32,8 @@ namespace LoadScene.ModelObjects
         }
 
     }
+    
+    //
     public class MultLogic : GameModel
     {
         private List<double> _exp;

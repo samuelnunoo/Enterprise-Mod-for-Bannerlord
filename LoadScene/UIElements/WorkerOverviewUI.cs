@@ -1,4 +1,5 @@
 ﻿
+using LoadScene.ModelObjects;
 using LoadScene.NavigationElements;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
@@ -9,23 +10,32 @@ using TaleWorlds.MountAndBlade.View.Screen;
 
 namespace LoadScene.UIElements
 {
-    [GameStateScreen(typeof(HireWorkerState))]
-    public class HireWorkerScreen : ScreenBase, IGameStateListener
+    [GameStateScreen(typeof(WorkerOverViewState))]
+    public class WorkerOverviewScreen : ScreenBase, IGameStateListener
     {
 
-        private HireWorkerVM _dataSource;
+        //Class Variables
+        private WorkerOverviewVM _dataSource;
         private GauntletLayer _gauntletLayer;
-        private readonly HireWorkerState _customState;
+        private readonly WorkerOverViewState _customState;
+      
         
-        public HireWorkerScreen(HireWorkerState customState)
+        
+        // Set CustomState, Listener, and Worker
+        public WorkerOverviewScreen(WorkerOverViewState customState)
         {
             this._customState = customState;
             this._customState.Listener = (IGameStateListener) this;
+            
         }
 
+        
+        //Activate VM and Movie 
         void IGameStateListener.OnActivate()
         {
             base.OnActivate();
+            
+            //Template 
             this._gauntletLayer = new GauntletLayer(1,"GauntletLayer");
             this._gauntletLayer.InputRestrictions.SetInputRestrictions(true,InputUsageMask.All);
             this._gauntletLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericCampaignPanelsGameKeyCategory"));
@@ -33,13 +43,16 @@ namespace LoadScene.UIElements
             ScreenManager.TrySetFocus((ScreenLayer) this._gauntletLayer);
             this.AddLayer((ScreenLayer) this._gauntletLayer);
 
-            this._dataSource = new HireWorkerVM();
+            
+            //DataSource and Movie  | Change Movie!!!!
+            this._dataSource = new WorkerOverviewVM(this._customState.Worker);
             this._gauntletLayer.LoadMovie("ClanScreen", this._dataSource);
 
         }
 
         void IGameStateListener.OnDeactivate()
         {
+            //Template
             this.OnDeactivate();
             this.RemoveLayer((ScreenLayer) this._gauntletLayer);
             this._gauntletLayer.IsFocusLayer = false;
@@ -52,7 +65,8 @@ namespace LoadScene.UIElements
 
         void IGameStateListener.OnFinalize()
         {
-            this._dataSource = (HireWorkerVM) null;
+            
+            this._dataSource = (WorkerOverviewVM) null;
             this._gauntletLayer = (GauntletLayer) null;
         }
 
@@ -61,10 +75,14 @@ namespace LoadScene.UIElements
 
 
 
-    public class HireWorkerVM : ViewModel
+    public class WorkerOverviewVM : ViewModel
     {
 
-        public HireWorkerVM()
+
+        private WorkerVM _workerVM;
+        
+        
+        public WorkerOverviewVM(Worker worker)
         {
         }
     }

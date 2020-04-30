@@ -1,4 +1,5 @@
-﻿using TaleWorlds.Core;
+﻿using LoadScene.ModelObjects;
+using TaleWorlds.Core;
 
 namespace LoadScene.NavigationElements
 {
@@ -19,7 +20,21 @@ namespace LoadScene.NavigationElements
         }
 
     }
+
     
-    public class HireWorkerState: CustomState{}
     
+    
+    //You can pass variables through GameStates
+    public class WorkerOverViewState : CustomState
+    {
+        
+        
+        //Variable to Pass
+        public Worker Worker { get; set; }
+        
+        
+    }
+
+
+
 }

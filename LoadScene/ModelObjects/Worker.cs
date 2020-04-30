@@ -14,7 +14,7 @@ namespace LoadScene.ModelObjects
         private string _Role;
         public abstract  string Role { get; set; }
         public abstract int Tier { get;  }
-        public abstract CharacterObject Character { get; }
+        public abstract Hero Character { get; }
         public abstract double Experience { get; }
         
         public abstract double Level { get; }
@@ -35,7 +35,7 @@ namespace LoadScene.ModelObjects
     public class NormalWorker : Worker
     {
         private double _experience;
-        private CharacterObject _character;
+        private Hero _character;
         private double _happiness;
         private string _role;
         private double _salary;
@@ -43,6 +43,7 @@ namespace LoadScene.ModelObjects
         private int _tier;
         private double _cost;
         private double _level;
+        
 
         
         private double _effmult;
@@ -69,8 +70,8 @@ namespace LoadScene.ModelObjects
 
         public NormalWorker(Hero hero, MultiplierObject obj)
         {
-      
-            this._character = hero.CharacterObject;
+
+            this._character = hero;
             this.SetMult(obj);
             
 
@@ -91,7 +92,7 @@ namespace LoadScene.ModelObjects
 
         public override double Level => _level;
         public override double Experience => _experience;
-        public override CharacterObject Character => _character;
+        public override Hero Character => _character;
         public override double Happiness => _happiness;
 
         public override string Role
@@ -123,7 +124,7 @@ namespace LoadScene.ModelObjects
         
     }
 
-
+    //Remove Later
     public class test
     {
         public static void RandomWorker()
