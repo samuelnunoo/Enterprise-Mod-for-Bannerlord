@@ -8,5 +8,7 @@ namespace LoadScene.NavigationElements
         void OpenCustom();
         void OpenOverview(Worker worker);
         
+        
+        
     }
 }

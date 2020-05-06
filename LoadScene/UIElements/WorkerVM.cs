@@ -18,6 +18,7 @@ namespace LoadScene.ModelObjects
         {
             this._worker = worker;
             this._navigationHandler = new CustomNavigation();
+            
 
         }
 
