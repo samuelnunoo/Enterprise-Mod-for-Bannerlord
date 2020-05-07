@@ -4,6 +4,7 @@ using System.Diagnostics;
 using LoadScene.ModelObjects;
 using LoadScene.NavigationElements;
 using LoadScene.SceneEditor;
+using LoadScene.SceneEditor.UIElements;
 using LoadScene.Tests;
 using SandBox;
 using TaleWorlds.CampaignSystem;
@@ -12,6 +13,7 @@ using TaleWorlds.Engine;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
+using TaleWorlds.ObjectSystem;
 using UIExtenderLib;
 
 namespace LoadScene
@@ -71,6 +73,28 @@ namespace LoadScene
 
         }
 
+        public Texture Test()
+        {
+            var x = 0;
+            var y = 0;
+            var z = 0;
+            var frame = MatrixFrame.Identity;
+            var cx = x + frame.origin.x;
+            var cy = y + frame.origin.y;
+            var cz = z + frame.origin.z;
+            Vec3 position = new Vec3(cx, cy, cz);
+            Mat3 rotation = frame.rotation;
+            MatrixFrame matrix = new MatrixFrame(rotation,position);
+            var modelTableau = new ModelTableau();
+            modelTableau.Initialize();
+            GameEntity entity = GameEntity.Instantiate(modelTableau.TableauScene, "ship_a", matrix);
+            modelTableau.SetModel(entity);
+            modelTableau.SetTargetSize(400,800);
+
+            return modelTableau.Texture;
+
+
+        }
         
         //Tick Events 
         protected override void OnApplicationTick(float dt)
@@ -89,8 +113,23 @@ namespace LoadScene
                     {
                         gameType.CampaignMissionManager = (CustomMissionManagerHandler) new CustomMissionManagerHandler();
                     }
-                    
-                    }
+
+                  //  var modelTableau = new ModelTableau();
+                    var x = 0;
+                    var y = 0;
+                    var z = 0;
+
+
+///
+///
+///
+///
+/// 
+/// 
+                
+
+
+                }
                 
                 
                 // Load Scene 
@@ -143,7 +182,8 @@ namespace LoadScene
             }
         }
 
-      
+       
+        
 
         //Verify UIExtenderLib
         protected override void OnBeforeInitialModuleScreenSetAsRoot()

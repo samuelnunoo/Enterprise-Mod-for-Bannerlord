@@ -47,9 +47,10 @@ namespace LoadScene.SceneEditor.MissionViews
 
             //Implement Handler and LoadScreen
             base.OnMissionScreenInitialize();
- 
+            CreateLayout();
 
-        
+
+
 
 
         }
@@ -77,12 +78,12 @@ namespace LoadScene.SceneEditor.MissionViews
             
             
             MatrixFrame frame = new MatrixFrame(rotation,rayEnd);
-            GameEntity.Instantiate(Mission.Current.Scene, "ship_a", frame);
+            GameEntity.Instantiate(Mission.Current.Scene, "sturgia_house_a", frame);
         }
         public void RotateItem(GameEntity item)
         {
             Mat3 rotation = item.GetFrame().rotation;
-            rotation.RotateAboutSide(30f);
+            rotation.RotateAboutSide(0.01f);
             Vec3 position = item.GetFrame().origin;
             MatrixFrame frame = new MatrixFrame(rotation,position);
             
@@ -95,7 +96,7 @@ namespace LoadScene.SceneEditor.MissionViews
         public void RotateUp(GameEntity item)
         {
             Mat3 rotation = item.GetFrame().rotation;
-            rotation.RotateAboutUp(30f);
+            rotation.RotateAboutUp(0.01f);
             Vec3 position = item.GetFrame().origin;
             MatrixFrame frame = new MatrixFrame(rotation,position);
             
@@ -117,11 +118,11 @@ namespace LoadScene.SceneEditor.MissionViews
                 if (_item != null && !Input.IsKeyReleased(InputKey.LeftMouseButton))
                 {
                     MoveItem(_item);
-                    if (Input.IsKeyPressed(InputKey.Q) && _item!=null)
+                    if (Input.IsKeyDown(InputKey.Q) && _item!=null)
                     {
                         RotateUp(_item);
                     }
-                    if (Input.IsKeyPressed(InputKey.E) && _item!=null)
+                    if (Input.IsKeyDown(InputKey.E) && _item!=null)
                     {
                         RotateItem(_item);
                     }
